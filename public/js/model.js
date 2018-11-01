@@ -1,7 +1,8 @@
 //The model updates the view
 
-const wordsToGuess = [];
-const descripArray = [];
+let wordsToGuess = [];
+let descripArray = [];
+let wordRating = 0;
 
 // id's of the html
 const word = $('#word'), descrip = $('#descrip'), buttonHolder = $('#lettersBtns'), score = $('#score'), restart = $('#restart'),

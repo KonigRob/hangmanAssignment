@@ -9,7 +9,7 @@ function addLetterClick(){
 	}
 }
 
-//restarts the game
+//restarts the Game
 function restartGame(){
 	if(limit < 7){
 		clearTimeout(nextGameCountdown);
@@ -24,7 +24,7 @@ function restartGame(){
 	}
 }
 
-//starts the game
+//starts the Game
 function startGame(){
 	if(!isGameRunning){
 		restart.show();

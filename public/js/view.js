@@ -67,7 +67,7 @@ function hideLetter(letter){
 }
 
 //loops through the word that is being guessed, and replaces the characters that were guessed correctly.
-//Also checks if it needs to start a new game based on how many correct letters there are vs the length
+//Also checks if it needs to start a new Game based on how many correct letters there are vs the length
 function loopAndReplace(letter){
 	const theWord = wordsToGuess[whichWord];
 	for(let i = 0; i < theWord.length; ++i){
@@ -83,7 +83,7 @@ function loopAndReplace(letter){
 	}
 }
 
-//ends the game, and outputs a message
+//ends the Game, and outputs a message
 function gameOver(message) {
 	descrip.text('');
 	isGameRunning = false;
