@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/StyleSheet.css">
+	<title>Leader Boards</title>
+
+	<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<a class="navbar-brand" href="index.html">Hangman</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#MemeSqrNavbar" aria-controls="MemeSqrNavbar" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="MemeSqrNavbar">
+		<div class="btn-group mr-auto" role="group" aria-label="Buttons">
+			<a class="btn btn-outline-info" href="#.html" role="button">Home</a>
+			<a class="btn btn-outline-info" id="play" href="#.html" role="button">Start</a>
+			<a class="btn btn-outline-info" href="leaderboard.html" role="button">Leaderboard</a>
+		</div>
+		<div id="account" class="form-inline my-2 mr-2 my-lg-0" style="display: none">
+			<a class="btn btn-outline-info" role="button" href="account.html"><span id="accountText"></span></a>
+		</div>
+		<div id="signout" class="form-inline my-2 my-lg-0" style="display: none">
+			<button class="btn btn-outline-danger" type="button">Sign out</button>
+		</div>
+		<div id="login" class="form-inline my-2 my-lg-0 btn-group-lg" role="group" aria-label="Buttons">
+			<a class="btn btn-outline-success my-2 my-sm-0" role="button" href="login.html">Log in</a>
+			<a class="btn btn-outline-success my-2 my-sm-0" role="button" href="register.html">Sign up</a>
+		</div>
+	</div>
+</nav>
+
+</body>
+</html>
