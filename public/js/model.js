@@ -33,6 +33,7 @@ let app = firebase.initializeApp(config);
 const db = firebase.firestore();
 const settings = { timestampsInSnapshots: true };
 db.settings(settings);
+const functions = firebase.functions();
 
 let accountText = $('#accountText');
 let account = $('#account');
@@ -47,3 +48,6 @@ let passwordInput = $('#passwordInput');
 
 //index
 let wordList= $('#wordList');
+let letterSortBtn = $('#letterSortBtn');
+let ratingSortBtn = $('#ratingSortBtn');
+let adminBtn = $('#adminBtn');

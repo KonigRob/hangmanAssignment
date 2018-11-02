@@ -1,15 +1,17 @@
 app.auth().onAuthStateChanged((user)=>{
+	console.log(user);
 	if(user){
 		account.show();
 		accountText.text(getUserName(user));
 		signout.show();
 		login.hide();
+		isAdmin(user);
 	} else {
 		account.hide();
 		signout.hide();
 		login.show();
 	}
-	grabWords(wordList);
+	grabWords(wordList, "rating");
 });
 
 function getUserName(user){
@@ -20,9 +22,9 @@ function getUserName(user){
 	}
 }
 
-function grabWords(wordList){
+function grabWords(wordList, type){
 	let j = 0;
-	db.collection("words").get().then((result)=>{
+	db.collection("words").orderBy(type).get().then((result)=>{
 		result.forEach((doc)=>{
 			const i = j;
 			wordList.append('<div><p class="d-inline" style="padding-right:10px;">Letters: '+doc.data().letterCount+' Rating: '+doc.data().rating+'</p>' +
@@ -152,6 +154,16 @@ function giveRating(rating){
 	db.collection("words").doc(wordsToGuess[0]).update({
 		rating:rating,
 	}).catch((e)=>{console.log(e)});
+}
 
+function isAdmin(user){
+	let whoAmI = functions.httpsCallable('whoAmI');
+	whoAmI({uid:user.uid}).then((result)=>{
+		console.log("This is an admin account?: ", result.data.you);
+		if (result.data.you === true) {
+			adminBtn.attr('href', result.data.site);
+			adminBtn.show();
+		}
+	});
 }
 

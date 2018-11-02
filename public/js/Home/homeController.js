@@ -72,3 +72,14 @@ start.click(function(){
 restart.click(function(){
 	restartGame();
 });
+
+letterSortBtn.click(()=>{
+	wordList.empty();
+	grabWords(wordList, "letterCount");
+});
+
+ratingSortBtn.click(()=>{
+	wordList.empty();
+	grabWords(wordList, "rating");
+});
+

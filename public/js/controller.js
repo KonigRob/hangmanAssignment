@@ -74,3 +74,4 @@ start.click(function(){
 restart.click(function(){
 	restartGame();
 });
+
