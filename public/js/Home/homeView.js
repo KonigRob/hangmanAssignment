@@ -1,11 +1,13 @@
+//changes displays based on who is logged in
 app.auth().onAuthStateChanged((user)=>{
-	console.log(user);
 	if(user){
+		currentUser = user.uid;
 		account.show();
 		accountText.text(getUserName(user));
 		signout.show();
 		login.hide();
 		isAdmin(user);
+		addUser(user);
 	} else {
 		account.hide();
 		signout.hide();
@@ -14,6 +16,7 @@ app.auth().onAuthStateChanged((user)=>{
 	grabWords(wordList, "rating");
 });
 
+//grabs the username/email from firebase
 function getUserName(user){
 	if(user.displayName === null){
 		return user.email;
@@ -22,15 +25,24 @@ function getUserName(user){
 	}
 }
 
+//grabs the words from firebase
 function grabWords(wordList, type){
 	let j = 0;
-	db.collection("words").orderBy(type).get().then((result)=>{
+	let wayToOrder;
+	if(wordListOrder === 1){
+		wordListOrder = 0;
+		wayToOrder = db.collection("words").orderBy(type, "desc").get();
+	} else {
+		wordListOrder = 1;
+		wayToOrder = db.collection("words").orderBy(type).get();
+	}
+	wayToOrder.then((result)=>{
 		result.forEach((doc)=>{
 			const i = j;
 			wordList.append('<div><p class="d-inline" style="padding-right:10px;">Letters: '+doc.data().letterCount+' Rating: '+doc.data().rating+'</p>' +
 				'<button class="btn btn-primary" id="word'+i+'" type="button">Start</button></div><br>');
 			$('#word'+i).click(()=>{
-				test(doc);
+				loadWord(doc);
 				// window.location = 'Game.html';
 			});
 			j++;
@@ -38,17 +50,20 @@ function grabWords(wordList, type){
 	});
 }
 
-function test(i){
-	console.log(i.data().description);
+//loads the words from firebase into the program
+function loadWord(word){
+	console.log(word.data().description);
 	wordsToGuess = [];
 	descripArray = [];
-	wordsToGuess.push(i.data().word);
-	descripArray.push(i.data().description);
-	wordRating = i.data().rating;
-	amountOfLetterInWord = i.data().letterCount;
-	console.log(wordRating);
-	startGame();
+	wordsToGuess.push(word.data().word);
+	descripArray.push(word.data().description);
+	wordRating = word.data().rating;
+	amountOfLetterInWord = word.data().letterCount;
+	gamesList.hide();
 	wordList.hide();
+	startGame();
+
+
 }
 
 //The view is what the user sees
@@ -100,6 +115,7 @@ function decreaseAttempts(){
 	attempts.text(parseInt(attempts.text()) -1);
 }
 
+//Sets the description
 function setDescription(number){
 	descrip.text(descripArray[number]);
 }
@@ -131,6 +147,10 @@ function loopAndReplace(letter){
 		}
 	}
 	if(count === amountOfLetterInWord){
+		console.log("you've won! with a score of ", score.text());
+		// firstScore(parseInt(score.text()));
+		// afterScores(parseInt(score.text()));
+		// checkUser(score.text());
 		let message = endArray[1] + "<b>" +parseInt(score.text()) + "</b>! Your word was: <b>" + wordsToGuess[whichWord] + "</b>";
 		gameOver(message);
 	}
@@ -138,6 +158,8 @@ function loopAndReplace(letter){
 
 //ends the Game, and outputs a message
 function gameOver(message) {
+	firstScore(parseInt(score.text()));
+	gamesList.show();
 	wordList.show();
 	descrip.text('');
 	isGameRunning = false;
@@ -150,12 +172,13 @@ function gameOver(message) {
 	word.prepend(message);
 }
 
-function giveRating(rating){
-	db.collection("words").doc(wordsToGuess[0]).update({
-		rating:rating,
-	}).catch((e)=>{console.log(e)});
-}
+// function giveRating(rating){
+// 	db.collection("words").doc(wordsToGuess[0]).update({
+// 		rating:rating,
+// 	}).catch((e)=>{console.log(e)});
+// }
 
+//detects if the user is an admin
 function isAdmin(user){
 	let whoAmI = functions.httpsCallable('whoAmI');
 	whoAmI({uid:user.uid}).then((result)=>{

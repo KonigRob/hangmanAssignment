@@ -47,7 +47,16 @@ let emailInput = $('#emailInput');
 let passwordInput = $('#passwordInput');
 
 //index
+let gamesList = $('#gamesList');
 let wordList= $('#wordList');
 let letterSortBtn = $('#letterSortBtn');
 let ratingSortBtn = $('#ratingSortBtn');
 let adminBtn = $('#adminBtn');
+let currentUser = "none";
+let wordListOrder = 1;
+
+//Leader board
+let highScoreList = $('#highScoreList');
+let highScoreSortBtn = $('#highScoreSortBtn');
+let firstPlayList = $('#firstPlayList');
+let firstPlaySortBtn = $('#firstPlaySortBtn');

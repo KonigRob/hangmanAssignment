@@ -1,3 +1,4 @@
+//login function when clicked
 accountLoginBtn.click(()=>{
 	app.auth().signInWithEmailAndPassword(emailInput.val(), passwordInput.val()).catch(function(error) {
 		if (error.code === 'auth/wrong-password') {
@@ -13,6 +14,7 @@ accountLoginBtn.click(()=>{
 	});
 });
 
+//signup function when clicked
 accountSignupBtn.click(()=>{
 	app.auth().createUserWithEmailAndPassword(emailInput.val(), passwordInput.val()).catch(function(error) {
 		if (error.code === 'auth/wrong-password') {
